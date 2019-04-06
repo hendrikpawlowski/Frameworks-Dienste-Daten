@@ -1,0 +1,23 @@
+{
+  "name": "frameworks-dienste-daten",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "amqplib": "^0.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hendrikpawlowski/Frameworks-Dienste-Daten.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hendrikpawlowski/Frameworks-Dienste-Daten/issues"
+  },
+  "homepage": "https://github.com/hendrikpawlowski/Frameworks-Dienste-Daten#readme"
+}
