@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "amqplib": "^0.5.3"
+    "amqplib": "^0.5.3",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "scripts": {
