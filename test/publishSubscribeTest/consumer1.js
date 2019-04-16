@@ -11,7 +11,7 @@ amqp.connect('amqp://localhost', function (err, conn) {
 
         ch.assertQueue('', { exclusive: true }, function (err, q) {
             console.log("Waiting for messages in %s", '');
-            ch.bindQueue('', exchangeName,'chat2');
+            ch.bindQueue('', exchangeName,'chat1');
 
             ch.consume('', function (msg) {
                 if (msg.content) {

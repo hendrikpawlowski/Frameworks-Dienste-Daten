@@ -15,7 +15,7 @@ rl.question('Please enter your message: ', (msg) => {
             var exchangeName = 'messages';
 
             ch.assertExchange(exchangeName, 'direct', { durable: false });
-            ch.publish(exchangeName, 'chat1', new Buffer(msg));
+            ch.publish(exchangeName, 'chat1' , new Buffer(msg));
             console.log("Sent " + msg);
         });
 
