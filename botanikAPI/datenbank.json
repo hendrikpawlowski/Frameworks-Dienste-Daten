@@ -1,0 +1,18 @@
+{
+    "kartoffeln": {
+        "minTemperatur": 12,
+        "maxTemperatur": 22
+    },
+    "spargel": {
+        "minTemperatur": 10,
+        "maxTemperatur": 40
+    },
+    "brombeeren": {
+        "minTemperatur": 16,
+        "maxTemperatur": 17
+    },
+    "zuchini": {
+        "minTemperatur": 14,
+        "maxTemperatur": 24
+    }
+}
