@@ -9,7 +9,7 @@ amqp.connect('amqp://localhost', function (err, conn) {
 
         ch.assertExchange(exchangeName, 'fanout', { durable: false });
 
-        ch.assertQueue('', { exclusive: true }, function (err, q) {
+        ch.assertQueue('chat1', { exclusive: true }, function (err, q) {
             console.log("Waiting for messages in %s", q.queue);
             ch.bindQueue(q.queue, exchangeName, '');
 
