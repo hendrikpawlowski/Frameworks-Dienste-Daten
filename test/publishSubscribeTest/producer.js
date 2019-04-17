@@ -6,19 +6,39 @@ const rl = readline.createInterface({
 });
 
 
-rl.question('Please enter your message: ', (msg) => {
+// rl.question('Please enter your message: ', (msg) => {
 
-    amqp.connect('amqp://localhost', function (err, conn) {
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 
-        conn.createChannel(function (err, ch) {
 
-            var exchangeName = 'messages';
+// while (true) {
+async function produce() {
 
-            ch.assertExchange(exchangeName, 'direct', { durable: false });
-            ch.publish(exchangeName, 'chat1', new Buffer(msg));
-            console.log("Sent " + msg);
+    for (var i = 0; i < 4; i++) {
+
+        var msg = "" + i;
+
+        amqp.connect('amqp://localhost', function (err, conn) {
+
+            conn.createChannel(function (err, ch) {
+
+                var exchangeName = 'messages';
+
+                ch.assertExchange(exchangeName, 'direct', { durable: false });
+                ch.publish(exchangeName, 'chat1', new Buffer(msg));
+                console.log("Sent " + msg);
+            });
+
+            setTimeout(function () { conn.close(); process.exit(0) }, 500);
         });
+        // await sleep(1000);
+    }
+}
 
-        setTimeout(function () { conn.close(); process.exit(0) }, 500);
-    });
-})
+produce();
+// }
+
+
+// })
