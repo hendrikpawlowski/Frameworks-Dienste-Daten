@@ -7,7 +7,7 @@
     {
         "name": "zuchini",
         "minTemperatur": 10,
-        "maxTemperatur": 40
+        "maxTemperatur": 28
     },
     {
         "name": "reis",
