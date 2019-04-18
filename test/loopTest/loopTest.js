@@ -1,6 +1,6 @@
 
 
-setInterval(function() {
+setInterval(function () {
 
     console.log("Hi");
 
