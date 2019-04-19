@@ -12,7 +12,7 @@ exports.requestAPI = function (options, callback) {
         });
 
         res2.on("end", function () {
-            const data = JSON.parse(body).daten;
+            const data = JSON.parse(body).daten.infos;
             callback(data);
         });
 

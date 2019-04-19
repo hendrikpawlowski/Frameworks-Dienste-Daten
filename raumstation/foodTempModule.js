@@ -6,9 +6,8 @@ exports.start = function () {
     setInterval(function () {
 
         const data = {
-            potatoe: {
+                name: "potatoe",
                 temp: (Math.random() * 40).toFixed(0)
-            }
         }
 
         amqp.connect('amqp://localhost', function (err, conn) {

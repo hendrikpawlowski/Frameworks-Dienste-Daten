@@ -1,5 +1,6 @@
 const amqp = require('amqplib/callback_api');
-const requestFunction = require('./requestFunction');
+const requestFunction = require('./helpFunctions/requestFunction');
+const helpFunction = require('./helpFunctions/helpFunctions');
 
 
 const botanikAPIOptions = {
@@ -35,44 +36,28 @@ amqp.connect('amqp://localhost', function (err, conn) {
     });
 });
 
-const check = function (marsData) {
+const check = function (marsFood) {
 
-    requestFunction.requestAPI(botanikAPIOptions, (earthData) => {
+    requestFunction.requestAPI(botanikAPIOptions, (earthFoodArray) => {
 
-        // console.log("EARTH: " + JSON.stringify(earthData));
+        // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
+        // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
+        const earthFood = helpFunction.getFoodByName(marsFood.name, earthFoodArray);
 
-        for (x in marsData.potatoe) {
-
-            switch (x) {
-                case "humidity":
-                    // return checkTemp(marsData.potatoe.temp, earthData.infos.potatoe);
-                    console.log(checkTemp(marsData.potatoe.temp, earthData.infos.potatoe));
-                    // console.log("Lol: humidity")
-                    break;
-                case "temp":
-                    // return checkHumidity(marsData.potatoe.humidity);
-                    // console.log("Lol: temp")
-                    break;
-            }
+        if (marsFood.temp != undefined) {
+            console.log("check: " + checkTemp(marsFood.temp, earthFood));
+        } else if (marsFood.humidity != undefined) {
+            // checkHumidity();
         }
-
-        // for (var i = 0; i < data.infos.length; i++) {
-        //     if (data.infos[i].name == "kartoffel") {
-        //         var min = data.infos[i].minTemperatur;
-        //         var max = data.infos[i].maxTemperatur;
-        //     }
-        // }
-
-        // if (temp >= min && temp <= max) console.log("OK");
-        // else if (temp < min) console.log("Temperatur erhöhen um mindestens " + (min - temp) + " Grad Celsius");
-        // else console.log("Temperatur erniedrigen um mindestens " + (temp - max) + " Grad Celsius");
     })
 }
 
-const checkTemp = function (marsTemp, potatoe) {
-    console.log(potatoe);
+const checkTemp = function (marsFoodTemp, earthFood) {
 
-    // if (marsTemp < potatoe.minTemp) return "Potatoe: Higher temperature for " + (potatoe.minTemp - marsTemp) + " degrees";
-    // else if (marsTemp > potatoe.maxTemp) return "Potatoe: Lower temperature for " + (marsTemp - potatoe.maxTemp) + " degrees";
-    // else return "Potatoe: temperature OK"
+    const minTemp = earthFood.minTemperature;
+    const maxTemp = earthFood.maxTemperature;
+
+    if (marsFoodTemp < minTemp) return earthFood.name + ": Higher temperature for " + (minTemp - marsFoodTemp) + " degrees";
+    else if (marsFoodTemp > maxTemp) return earthFood.name + ": Lower temperature for " + (marsFoodTemp - maxTemp) + " degrees";
+    else return earthFood.name + ": temperature OK"
 }

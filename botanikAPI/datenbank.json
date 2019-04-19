@@ -1,22 +1,22 @@
 {"infos":[
     {
-        "name": "kartoffel",
-        "minTemperatur": 12,
-        "maxTemperatur": 22
+        "name": "potatoe",
+        "minTemperature": 12,
+        "maxTemperature": 22
     },
     {
         "name": "zuchini",
-        "minTemperatur": 10,
-        "maxTemperatur": 28
+        "minTemperature": 10,
+        "maxTemperature": 28
     },
     {
-        "name": "reis",
-        "minTemperatur": 16,
-        "maxTemperatur": 17
+        "name": "rice",
+        "minTemperature": 16,
+        "maxTemperature": 17
     },
     {
         "name": "pepperoni",
-        "minTemperatur": 14,
-        "maxTemperatur": 24
+        "minTemperature": 14,
+        "maxTemperature": 24
     }
 ]}
