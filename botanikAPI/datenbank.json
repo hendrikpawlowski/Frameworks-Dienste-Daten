@@ -1,22 +1,32 @@
-{"infos":[
-    {
-        "name": "potatoe",
-        "minTemperature": 12,
-        "maxTemperature": 22
-    },
-    {
-        "name": "zuchini",
-        "minTemperature": 10,
-        "maxTemperature": 28
-    },
-    {
-        "name": "rice",
-        "minTemperature": 16,
-        "maxTemperature": 17
-    },
-    {
-        "name": "pepperoni",
-        "minTemperature": 14,
-        "maxTemperature": 24
-    }
-]}
+{
+    "infos": [
+        {
+            "name": "potatoe",
+            "minTemperature": 12,
+            "maxTemperature": 22,
+            "minHumidity": 20,
+            "maxHumidity": 80
+        },
+        {
+            "name": "zuchini",
+            "minTemperature": 10,
+            "maxTemperature": 28,
+            "minHumidity": 20,
+            "maxHumidity": 80
+        },
+        {
+            "name": "rice",
+            "minTemperature": 16,
+            "maxTemperature": 17,
+            "minHumidity": 20,
+            "maxHumidity": 80
+        },
+        {
+            "name": "pepperoni",
+            "minTemperature": 14,
+            "maxTemperature": 24,
+            "minHumidity": 20,
+            "maxHumidity": 80
+        }
+    ]
+}
