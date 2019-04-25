@@ -23,34 +23,56 @@ amqp.connect('amqp://localhost', function (err, conn) {
             ch.bindQueue('', exchangeName, 'food');
 
             ch.consume('', function (msg) {
+                
                 if (msg.content) {
-                    var data = JSON.parse(msg.content);
-                    // setTimeout(function () {
-                    // console.log("Received: " + data);
-                    // }, 5000);
+                    var marsFood = JSON.parse(msg.content);
 
-                    check(data);
+                    let x = new Promise((resolve, reject) => {
+
+                        requestFunction.requestAPI(botanikAPIOptions, (earthFoodArray) => {
+
+                            // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
+                            // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
+                            const earthFood = helpFunction.getFoodByName(marsFood.name, earthFoodArray);
+                    
+                            if (marsFood.temp != undefined) {
+                                resolve(checkTemp(marsFood.temp, earthFood));
+                            } else if (marsFood.humidity != undefined) {
+                                resolve(checkHumidity(marsFood.humidity, earthFood));
+                            } else {
+                                reject("Failed");
+                            }
+                        })
+                    })
+                    // check(data);
+                    x.then((responseToMars) => {
+                        console.log(responseToMars);
+                    }).catch((message) => {
+                        console.log(message);
+                    })
                 }
             }, { noAck: true });
         });
     });
 });
 
-const check = function (marsFood) {
+// const check = function (marsFood) {
 
-    requestFunction.requestAPI(botanikAPIOptions, (earthFoodArray) => {
+//     requestFunction.requestAPI(botanikAPIOptions, (earthFoodArray) => {
 
-        // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
-        // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
-        const earthFood = helpFunction.getFoodByName(marsFood.name, earthFoodArray);
+//         // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
+//         // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
+//         const earthFood = helpFunction.getFoodByName(marsFood.name, earthFoodArray);
 
-        if (marsFood.temp != undefined) {
-            console.log("check: " + checkTemp(marsFood.temp, earthFood));
-        } else if (marsFood.humidity != undefined) {
-            console.log("check: " + checkHumidity(marsFood.humidity, earthFood));
-        }
-    })
-}
+//         if (marsFood.temp != undefined) {
+//             return checkTemp(marsFood.temp, earthFood);
+//         } else if (marsFood.humidity != undefined) {
+//             return checkHumidity(marsFood.humidity, earthFood);
+//         } else {
+//             return "Failed";
+//         }
+//     })
+// }
 
 const checkTemp = function (marsFoodTemp, earthFood) {
 
