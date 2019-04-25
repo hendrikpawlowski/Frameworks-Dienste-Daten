@@ -25,6 +25,5 @@ exports.start = function () {
                 conn.close();
             }, 500);
         });
-
-    }, 2000)
+    }, 8000)
 }
