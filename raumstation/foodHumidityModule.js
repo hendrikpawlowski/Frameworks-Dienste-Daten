@@ -14,10 +14,10 @@ exports.start = function () {
 
             conn.createChannel(function (err, ch) {
 
-                var exchangeName = 'messages';
+                var exchangeName = 'fromMars';
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false });
-                ch.publish(exchangeName, 'botaniker', new Buffer(JSON.stringify(data)));
+                ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
                 console.log("Sent " + JSON.stringify(data));
             });
 

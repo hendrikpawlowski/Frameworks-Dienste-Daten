@@ -5,13 +5,13 @@ amqp.connect('amqp://localhost', function (err, conn) {
 
     conn.createChannel(function (err, ch) {
 
-        var exchangeName = 'messages';
+        var exchangeName = 'fromMars';
 
         ch.assertExchange(exchangeName, 'direct', { durable: false });
 
         ch.assertQueue('', { exclusive: true }, function (err, q) {
             console.log("Waiting for messages in %s", '');
-            ch.bindQueue('', exchangeName,'nachrichten');
+            ch.bindQueue('', exchangeName,'messages');
 
             ch.consume('', function (msg) {
                 if (msg.content) {

@@ -12,10 +12,10 @@ rl.question('Nachricht an die Erde: ', (msg) => {
 
         conn.createChannel(function (err, ch) {
 
-            var exchangeName = 'messages';
+            var exchangeName = 'fromMars';
 
             ch.assertExchange(exchangeName, 'direct', { durable: false });
-            ch.publish(exchangeName, 'nachrichten' , new Buffer(msg));
+            ch.publish(exchangeName, 'messages' , new Buffer(msg));
             console.log("Sent " + msg);
         });
 
