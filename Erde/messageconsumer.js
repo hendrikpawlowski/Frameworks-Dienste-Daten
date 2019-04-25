@@ -10,7 +10,7 @@ amqp.connect('amqp://localhost', function (err, conn) {
         ch.assertExchange(exchangeName, 'direct', { durable: false });
 
         ch.assertQueue('', { exclusive: true }, function (err, q) {
-            console.log("Waiting for messages in %s", '');
+            console.log("Waiting for messages in");
             ch.bindQueue('', exchangeName,'messages');
 
             ch.consume('', function (msg) {

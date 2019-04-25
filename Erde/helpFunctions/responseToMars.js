@@ -9,6 +9,7 @@ exports.send = function (data) {
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false })
                 ch.publish(exchangeName, 'responseToMars', new Buffer(JSON.stringify(data)))
+                console.log("SENT: " + JSON.stringify(data));
             })
 
             setTimeout(function () {

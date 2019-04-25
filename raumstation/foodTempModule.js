@@ -6,8 +6,8 @@ exports.start = function () {
     setInterval(function () {
 
         const data = {
-                name: "potatoe",
-                temp: (Math.random() * 40).toFixed(0)
+            name: "potatoe",
+            temp: (Math.random() * 40).toFixed(0)
         }
 
         amqp.connect('amqp://localhost', function (err, conn) {
@@ -18,7 +18,7 @@ exports.start = function () {
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false });
                 ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
-                console.log("Sent " + JSON.stringify(data));
+                console.log("SENT: " + JSON.stringify(data));
             });
 
             setTimeout(function () {

@@ -2,6 +2,8 @@ const amqp = require('amqplib/callback_api')
 const foodTempModule = require('./foodTempModule');
 const foodHumidityModule = require('./foodHumidityModule');
 
+console.log("control center started");
+
 foodTempModule.start();
 foodHumidityModule.start();
 
@@ -13,11 +15,10 @@ amqp.connect('amqp://localhost',
             ch.assertExchange(exchangeName, 'direct', { durable: false })
 
             ch.assertQueue('', { exclusive: true }, function (err, q) {
-                console.log('Waiting for messages in %s', '')
                 ch.bindQueue('', exchangeName, 'responseToMars')
 
                 ch.consume('', function (msg) {
-                    console.log("fromEarth: " + JSON.parse(msg.content));
+                    console.log("RECEIVED: " + JSON.parse(msg.content));
                 }, { noAck: true })
             })
         })

@@ -18,7 +18,7 @@ exports.start = function () {
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false });
                 ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
-                console.log("Sent " + JSON.stringify(data));
+                console.log("SENT: " + JSON.stringify(data));
             });
 
             setTimeout(function () {
