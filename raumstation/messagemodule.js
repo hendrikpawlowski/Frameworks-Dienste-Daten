@@ -16,7 +16,7 @@ rl.question('Nachricht an die Erde: ', (msg) => {
 
             ch.assertExchange(exchangeName, 'direct', { durable: false });
             ch.publish(exchangeName, 'messages' , new Buffer(msg));
-            console.log("Sent " + msg);
+            console.log("Sent " + msg +"\n");
         });
 
         setTimeout(function () { conn.close(); process.exit(0) }, 500);
