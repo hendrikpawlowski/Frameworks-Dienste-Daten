@@ -84,7 +84,12 @@ exports.start = function () {
                                 //console.log(data.main_species.growth);
                                 const min_temp = data.main_species.growth.temperature_minimum.deg_c;
                                 if (marsFood.temp < min_temp) {
-                                    resolve("Increase temperature by " + (min_temp-marsFood.temp) + "degrees")
+                                    var tempMsg = {
+                                        type: "temperature",
+                                        effect: min_temp-marsFood.temp
+                                    }
+                                    resolve(tempMsg);
+                                    //resolve("Increase temperature by " + (min_temp-marsFood.temp) + " degrees")
                                 } else if (marsFood.temp >= min_temp) {
                                     resolve("Everything ok!")
                                 } else {

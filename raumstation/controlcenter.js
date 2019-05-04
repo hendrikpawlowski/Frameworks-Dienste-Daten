@@ -18,9 +18,9 @@ amqp.connect('amqp://localhost',
                 ch.bindQueue('', exchangeName, 'responseToMars')
 
                 ch.consume('', function (msg) {
-                    console.log("RECEIVED: " + JSON.parse(msg.content));
-                    if (JSON.parse(msg.content) !== "Everything ok!") {
-                        ch.publish(exchangeName, 'messageToRobot', new Buffer(JSON.parse(msg.content)))
+                    console.log("RECEIVED: " + msg.content);
+                    if (msg.content!== "Everything ok!") {
+                        ch.publish(exchangeName, 'messageToRobot', new Buffer(msg.content))
                     }
                 }, { noAck: true })
             })

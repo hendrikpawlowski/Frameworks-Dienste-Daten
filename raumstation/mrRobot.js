@@ -1,5 +1,5 @@
-const amqp = require('amqplib/callback_api')
-
+const amqp = require('amqplib/callback_api');
+const heater = require('./heater')
 
 amqp.connect('amqp://localhost',
     function (err, conn) {
@@ -12,7 +12,11 @@ amqp.connect('amqp://localhost',
                 ch.bindQueue('', exchangeName, 'messageToRobot')
 
                 ch.consume('', function (msg) {
-                    console.log("RECEIVED: " + msg.content);
+                    console.log("RECEIVED: " + JSON.parse(msg.content).type);
+                    if (JSON.parse(msg.content).type === "temperature") {
+                        console.log("Heater activated!")
+                        heater.heat(JSON.parse(msg.content).effect)
+                    }
                 }, { noAck: true })
             })
         })
