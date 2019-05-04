@@ -1,6 +1,5 @@
-require('./foodTempModule')
+const potato = require('./potato')
 
 exports.heat = function(temperature) {
-    data.temp += temperature
-    console.log(data.temp)
+    potato.setTemp(potato.getData().temp + temperature)
 }
