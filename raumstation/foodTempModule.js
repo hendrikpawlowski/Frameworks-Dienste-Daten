@@ -7,7 +7,8 @@ exports.start = function () {
 
         const data = {
             name: "potatoe",
-            temp: (Math.random() * 40).toFixed(0)
+            //temp: (Math.random() * 40).toFixed(0)
+            temp: -10
         }
 
         amqp.connect('amqp://localhost', function (err, conn) {

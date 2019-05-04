@@ -1,6 +1,5 @@
 const http = require('http');
 
-
 exports.requestAPI = function (options, callback) {
 
     var request = http.request(options, function (res2) {
