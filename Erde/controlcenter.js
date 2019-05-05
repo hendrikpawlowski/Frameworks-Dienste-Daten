@@ -1,5 +1,5 @@
 const foodConsumer = require('./foodConsumer');
 
-console.log("control center started");
+console.log("EARTH: control center started\n");
 
 foodConsumer.start();
