@@ -1,14 +1,15 @@
 const amqp = require('amqplib/callback_api');
+const potato = require('./potato')
 
+/*data = {
+    name: "potatoe",
+    //temp: (Math.random() * 40).toFixed(0)
+    temp: -20
+}*/
 
 exports.start = function () {
 
     setInterval(function () {
-
-        const data = {
-            name: "potatoe",
-            temp: (Math.random() * 40).toFixed(0)
-        }
 
         amqp.connect('amqp://localhost', function (err, conn) {
 
@@ -17,13 +18,13 @@ exports.start = function () {
                 var exchangeName = 'fromMars';
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false });
-                ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
-                console.log("SENT: " + JSON.stringify(data));
+                ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(potato.getData())));
+                console.log("SENT: " + JSON.stringify(potato.getData()));
             });
 
             setTimeout(function () {
                 conn.close();
             }, 500);
         });
-    }, 8000)
+    }, 2000)
 }
