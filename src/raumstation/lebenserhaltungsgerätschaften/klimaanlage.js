@@ -3,32 +3,36 @@ const temperatur = require('../versorgungsmittel/temperatur.json');
 
 
 // this function sends temperatures for various food to earth
-exports.start = function () {
+const start = function () {
 
-  // setInterval(function () {
+  setInterval(function () {
 
-  // const data = {
-  //   name: "potatoe",
-  //   humidity: ((Math.random() * 100).toFixed(0))
-  // }
+    // Dieser Aufruf soll die realen Temperaturschwankungen simulieren
+    setRandomTemperatures();
 
-  amqp.connect('amqp://localhost', function (err, conn) {
+    const data = {
+      versorgungsmittel: 'temperatur',
+      raum: 'kartoffel',
+      temperatur: getTemperature('kartoffel')
+    }
 
-    conn.createChannel(function (err, ch) {
+    amqp.connect('amqp://localhost', function (err, conn) {
 
-      var exchangeName = 'fromMars';
+      conn.createChannel(function (err, ch) {
 
-      ch.assertExchange(exchangeName, 'direct', { durable: false });
-      ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
-      console.log("SENT: " + JSON.stringify(data));
+        var exchangeName = 'fromMars';
+
+        ch.assertExchange(exchangeName, 'direct', { durable: false });
+        ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
+        console.log("SENT: " + JSON.stringify(data));
+      });
+
+      setTimeout(function () {
+        conn.close();
+      }, 500);
     });
 
-    setTimeout(function () {
-      conn.close();
-    }, 500);
-  });
-
-  // }, 5000)
+  }, 2000)
 }
 
 // Mithilfe dieser Methode greift der versorgungsRoboter auf die klimaanlage zu und kann so die Temperatur verändern
@@ -43,13 +47,9 @@ exports.changeTemperature = function (amount, raumName) {
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum die Temperatur
 const getTemperature = function (raumName) {
 
-  const temp = temperatur.daten;
-
   if (getRaumByName(raumName) === -1) return 'raum nicht gefunden'
 
   return getRaumByName(raumName).temperatur;
-
-  return 'not found';
 }
 
 // Hilfsmethode um einen bestimmten Raum als js-Object zu bekommen
@@ -65,3 +65,17 @@ const getRaumByName = function (raumName) {
 
   return -1;
 }
+
+// Diese Methode ist dazu da um die realen Temperaturschwankungen zu simulieren, indem sie in jedem Raum
+// die Temperatur zufällig zwischen -10 und 20 setzt
+const setRandomTemperatures = function () {
+  const räume = temperatur.räume;
+
+  räume.forEach(element => {
+    element.temperatur = ((Math.random() * 30) - 10).toFixed(0);
+  });
+}
+
+
+
+start();
