@@ -31,21 +31,38 @@ exports.start = function () {
   // }, 5000)
 }
 
-exports.setTemperature = function (temp, raum) {
-  // sets the temperature for potatoes
+const setTemperature = function (temp, raumName) {
+
+  let raum = getRaumByName(raumName);
+  if(raum === -1) return 'raum nicht gefunden';
+
+  raum.temperatur = temp;
 }
 
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum die Temperatur
-const getTemperature = function (raum) {
+const getTemperature = function (raumName) {
 
   const temp = temperatur.daten;
 
-  for (let i = 0; i < temp.length; i++) {
-    if (temp[i].raum == raum) {
-      return temp[i].temperatur;
-    }
-  }
+  if (getRaumByName(raumName) === -1) return 'raum nicht gefunden'
+
+  return getRaumByName(raumName).temperatur;
 
   return 'not found';
 }
+
+// Hilfsmethode um einen bestimmten Raum als js-Object zu bekommen
+const getRaumByName = function (raumName) {
+
+  const räume = temperatur.räume;
+
+  for (let i = 0; i < räume.length; i++) {
+    if (räume[i].bezeichnung === raumName) {
+      return räume[i];
+    }
+  }
+
+  return -1;
+}
+setTemperature(30, 'kartoffel')
 console.log('\nTemperatur für Kartoffeln: ' + getTemperature("kartoffel"));
