@@ -64,5 +64,3 @@ const getRaumByName = function (raumName) {
 
   return -1;
 }
-setTemperature(30, 'kartoffel')
-console.log('\nTemperatur für Kartoffeln: ' + getTemperature("kartoffel"));
