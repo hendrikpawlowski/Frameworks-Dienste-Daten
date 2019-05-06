@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api')
 const foodTempModule = require('./foodTempModule');
-const foodHumidityModule = require('./foodHumidityModule');
+const foodHumidityModule = require('./klimaanlage');
 
 console.log("\nMARS: control center started\n");
 

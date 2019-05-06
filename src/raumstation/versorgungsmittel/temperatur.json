@@ -1,0 +1,16 @@
+{
+  "daten": [
+    {
+      "raum": "kartoffel",
+      "temperatur": 20
+    },
+    {
+      "raum": "schlafzimmer",
+      "temperatur": 20
+    },
+    {
+      "raum": "aufenthaltsraum",
+      "temperatur": 20
+    }
+  ]
+}
