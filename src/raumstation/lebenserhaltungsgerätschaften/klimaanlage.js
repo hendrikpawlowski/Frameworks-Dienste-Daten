@@ -31,12 +31,13 @@ exports.start = function () {
   // }, 5000)
 }
 
-exports.setTemperature = function (temp, raumName) {
+// Mithilfe dieser Methode greift der versorgungsRoboter auf die klimaanlage zu und kann so die Temperatur verändern
+exports.changeTemperature = function (amount, raumName) {
 
   let raum = getRaumByName(raumName);
-  if(raum === -1) return 'raum nicht gefunden';
+  if (raum === -1) return 'raum nicht gefunden';
 
-  raum.temperatur = temp;
+  raum.temperatur = raum.temperatur + amount;
 }
 
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum die Temperatur
