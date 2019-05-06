@@ -31,7 +31,7 @@ exports.start = function () {
   // }, 5000)
 }
 
-const setTemperature = function (temp, raumName) {
+exports.setTemperature = function (temp, raumName) {
 
   let raum = getRaumByName(raumName);
   if(raum === -1) return 'raum nicht gefunden';
