@@ -1,4 +1,3 @@
-const amqp = require('amqplib/callback_api');
 const request = require('request');
 const hf = require('../ourModules/helpFunctions');
 
@@ -7,7 +6,6 @@ const botanikAPIOptions = {
     bearer: 'SUNjdmpQS2FvMFVsNmVPaHdUcXJZUT09'
   }
 }
-
 
 hf.consume('fromMars', 'versorgung', (data) => {
 
