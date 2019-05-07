@@ -1,81 +1,80 @@
 const amqp = require('amqplib/callback_api');
-const temperatur = require('../versorgungsmittel/temperatur.json');
+const fs = require('fs');
 
 
 // this function sends temperatures for various food to earth
-const start = function () {
+exports.start = function () {
 
   setInterval(function () {
 
-    // Dieser Aufruf soll die realen Temperaturschwankungen simulieren
-    setRandomTemperatures();
+    getTemperature('kartoffel', (temperatur) => {
 
-    const data = {
-      versorgungsmittel: 'temperatur',
-      raum: 'kartoffel',
-      temperatur: getTemperature('kartoffel')
-    }
+      const message = {
+        versorgungsmittel: 'temperatur',
+        raum: 'kartoffel',
+        temperatur: temperatur
+      }
 
-    amqp.connect('amqp://localhost', function (err, conn) {
+      amqp.connect('amqp://localhost', function (err, conn) {
 
-      conn.createChannel(function (err, ch) {
+        conn.createChannel(function (err, ch) {
 
-        var exchangeName = 'fromMars';
+          var exchangeName = 'fromMars';
 
-        ch.assertExchange(exchangeName, 'direct', { durable: false });
-        ch.publish(exchangeName, 'food', new Buffer(JSON.stringify(data)));
-        console.log("SENT: " + JSON.stringify(data));
-      });
+          ch.assertExchange(exchangeName, 'direct', { durable: false });
+          ch.publish(exchangeName, 'versorgung', new Buffer(JSON.stringify(message)));
 
-      setTimeout(function () {
-        conn.close();
-      }, 500);
+          console.log("SENT: " + JSON.stringify(message));
+
+          setTimeout(function () {
+            conn.close();
+          }, 500);
+        });
+      })
     });
-
   }, 2000)
 }
 
 // Mithilfe dieser Methode greift der versorgungsRoboter auf die klimaanlage zu und kann so die Temperatur verändern
 exports.changeTemperature = function (amount, raumName) {
 
-  let raum = getRaumByName(raumName);
-  if (raum === -1) return 'raum nicht gefunden';
+  fs.readFile('../versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
 
-  raum.temperatur = raum.temperatur + amount;
+    let x = JSON.parse(data);
+
+    for (let i = 0; i < x.räume.length; i++) {
+      if (x.räume[i].bezeichnung === raumName) {
+        console.log("T: " + x.räume[i].temperatur);
+
+        console.log(x.räume[i].temperatur + amount);
+
+        x.räume[i].temperatur += amount;
+        
+        fs.writeFile('../versorgungsmittel/temperatur.json', JSON.stringify(x), (err) => {
+          if (err) throw err;
+        })
+      }
+    }
+  })
 }
 
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum die Temperatur
-const getTemperature = function (raumName) {
+const getTemperature = function (raumName, callback) {
 
-  if (getRaumByName(raumName) === -1) return 'raum nicht gefunden'
+  fs.readFile('../versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
 
-  return getRaumByName(raumName).temperatur;
-}
+    let token = false;
+    const räume = JSON.parse(data).räume;
 
-// Hilfsmethode um einen bestimmten Raum als js-Object zu bekommen
-const getRaumByName = function (raumName) {
-
-  const räume = temperatur.räume;
-
-  for (let i = 0; i < räume.length; i++) {
-    if (räume[i].bezeichnung === raumName) {
-      return räume[i];
+    for (let i = 0; i < räume.length; i++) {
+      if (räume[i].bezeichnung === raumName) {
+        callback(räume[i].temperatur);
+        token = true;
+      }
     }
-  }
 
-  return -1;
+    if (!token) {
+      callback(-1);
+    }
+  })
 }
-
-// Diese Methode ist dazu da um die realen Temperaturschwankungen zu simulieren, indem sie in jedem Raum
-// die Temperatur zufällig zwischen -10 und 20 setzt
-const setRandomTemperatures = function () {
-  const räume = temperatur.räume;
-
-  räume.forEach(element => {
-    element.temperatur = ((Math.random() * 30) - 10).toFixed(0);
-  });
-}
-
-
-
-start();

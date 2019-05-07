@@ -2,15 +2,15 @@
   "räume": [
     {
       "bezeichnung": "kartoffel",
-      "temperatur": 20
+      "temperatur": 14
     },
     {
       "bezeichnung": "schlafzimmer",
-      "temperatur": 20
+      "temperatur": 1
     },
     {
       "bezeichnung": "aufenthaltsraum",
-      "temperatur": 20
+      "temperatur": 1
     }
   ]
 }
