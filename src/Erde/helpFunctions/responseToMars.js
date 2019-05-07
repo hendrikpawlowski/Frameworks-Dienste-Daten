@@ -8,7 +8,7 @@ exports.send = function (data) {
                 var exchangeName = 'fromEarth'
 
                 ch.assertExchange(exchangeName, 'direct', { durable: false })
-                ch.publish(exchangeName, 'responseToMars', new Buffer(JSON.stringify(data)))
+                ch.publish(exchangeName, 'versorgung', new Buffer(JSON.stringify(data)))
                 console.log("SENT: " + JSON.stringify(data));
             })
 
