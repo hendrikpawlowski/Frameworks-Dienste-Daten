@@ -81,15 +81,10 @@ exports.consume = function (exchangeName, routingKey, callback) {
           console.log("RECEIVED: " + msg.content);
 
           callback(JSON.parse(msg.content));
-
-          // if (data.versorgungsmittel === 'temperatur') {
-          //   checkTemperature(data);
-          // }
         },
           { noAck: true }
         )
       })
     })
   })
-
 }
