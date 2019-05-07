@@ -1,5 +1,5 @@
-const amqp = require('amqplib/callback_api');
 const fs = require('fs');
+const hf = require('../../ourModules/helpFunctions');
 
 
 // this function sends temperatures for various food to earth
@@ -15,22 +15,8 @@ exports.start = function () {
         temperatur: temperatur
       }
 
-      amqp.connect('amqp://localhost', function (err, conn) {
+      hf.produce('fromMars', 'versorgung', message);
 
-        conn.createChannel(function (err, ch) {
-
-          var exchangeName = 'fromMars';
-
-          ch.assertExchange(exchangeName, 'direct', { durable: false });
-          ch.publish(exchangeName, 'versorgung', new Buffer(JSON.stringify(message)));
-
-          console.log("SENT: " + JSON.stringify(message));
-
-          setTimeout(function () {
-            conn.close();
-          }, 500);
-        });
-      })
     });
   }, 2000)
 }
@@ -38,19 +24,17 @@ exports.start = function () {
 // Mithilfe dieser Methode greift der versorgungsRoboter auf die klimaanlage zu und kann so die Temperatur verändern
 exports.changeTemperature = function (amount, raumName) {
 
-  fs.readFile('../versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
+  fs.readFile('./versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
 
     let x = JSON.parse(data);
 
     for (let i = 0; i < x.räume.length; i++) {
       if (x.räume[i].bezeichnung === raumName) {
-        console.log("T: " + x.räume[i].temperatur);
 
-        console.log(x.räume[i].temperatur + amount);
+        x.räume[i].temperatur += new Number(amount);
+        x.räume[i].temperatur = new Number(x.räume[i].temperatur.toFixed(2));
 
-        x.räume[i].temperatur += amount;
-        
-        fs.writeFile('../versorgungsmittel/temperatur.json', JSON.stringify(x), (err) => {
+        fs.writeFile('./versorgungsmittel/temperatur.json', JSON.stringify(x), (err) => {
           if (err) throw err;
         })
       }
@@ -61,7 +45,9 @@ exports.changeTemperature = function (amount, raumName) {
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum die Temperatur
 const getTemperature = function (raumName, callback) {
 
-  fs.readFile('../versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
+  fs.readFile('./versorgungsmittel/temperatur.json', 'UTF-8', (err, data) => {
+
+    if (err) throw err;
 
     let token = false;
     const räume = JSON.parse(data).räume;

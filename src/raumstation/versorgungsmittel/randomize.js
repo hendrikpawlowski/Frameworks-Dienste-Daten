@@ -6,7 +6,7 @@ const setRandomTemperatures = function () {
   const räume = temperatur.räume;
 
   räume.forEach(element => {
-    element.temperatur = ((Math.random() * 40) - 20).toFixed(0);
+    element.temperatur = new Number(((Math.random() * 40) - 20).toFixed(0));
   });
 
   saveData();
