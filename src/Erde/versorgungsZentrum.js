@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 const request = require('request');
-const responseToMars = require('./helpFunctions/responseToMars');
+const hf = require('../ourModules/helpFunctions');
 
 const botanikAPIOptions = {
   method: 'GET', url: 'http://trefle.io/api/plants/129834', auth: {
@@ -9,87 +9,12 @@ const botanikAPIOptions = {
 }
 
 
-amqp.connect('amqp://localhost', function (err, conn) {
-  conn.createChannel(function (err, ch) {
-    var exchangeName = 'fromMars';
+hf.consume('fromMars', 'versorgung', (data) => {
 
-    ch.assertExchange(exchangeName, 'direct', { durable: false });
-
-    ch.assertQueue('', { exclusive: true }, function (err, q) {
-      // console.log('Waiting for messages in %s', '')
-      ch.bindQueue('', exchangeName, 'versorgung');
-
-      ch.consume('', function (msg) {
-
-        console.log("RECEIVED: " + msg.content);
-
-        var data = JSON.parse(msg.content);
-
-        if (data.versorgungsmittel === 'temperatur') {
-          console.log('checkTemperature');
-          checkTemperature(data);
-        }
-
-        //   let x = new Promise((resolve, reject) => {
-        //     /*requestFunction.requestAPI(botanikAPIOptions, earthFoodArray => {
-        //         // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
-        //         // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
-        //         const earthFood = helpFunction.getFoodByName(
-        //             marsFood.name,
-        //             earthFoodArray
-        //         )
-
-
-
-        //         if (marsFood.temp != undefined) {
-        //             resolve(helpFunction.checkTemp(marsFood.temp, earthFood))
-        //         } else if (marsFood.humidity != undefined) {
-        //             resolve(helpFunction.checkHumidity(marsFood.humidity, earthFood))
-        //         } else {
-        //             reject('Failed')
-        //         }
-        //     }
-        //     )*/
-
-        /*
-        let x = new Promise((resolve, reject) => {
-
-          request(botanikAPIOptions, function (error, response, body) {
-
-            if (error) console.log(error);
-
-            const data = JSON.parse(body);
-            //console.log(data.main_species.growth);
-            // const min_temp = data.main_species.growth.temperature_minimum.deg_c;
-            // if (marsFood.temp < min_temp) {
-            //   var tempMsg = {
-            //     type: "temperature",
-            //     effect: min_temp - marsFood.temp
-            //   }
-            //   resolve(tempMsg);
-            //   //resolve("Increase temperature by " + (min_temp-marsFood.temp) + " degrees")
-            // } else if (marsFood.temp >= min_temp) {
-            //   resolve("Everything ok!")
-            // } else {
-            //   reject("Failed!")
-            // }
-          })
-        })
-        */
-        //     });
-        //   });
-
-        //   x.then((response) => {
-        //     responseToMars.send(response);
-        //     // console.log(responseToMars)
-        //   }).catch(message => {
-        //     console.log(message)
-      },
-        { noAck: true }
-      )
-    })
-  })
-})
+  if (data.versorgungsmittel === 'temperatur') {
+    checkTemperature(data);
+  }
+});
 
 const checkTemperature = function (message) {
 
@@ -104,10 +29,8 @@ const checkTemperature = function (message) {
 
       if (message.temperatur < min_temp) {
         var messageToMars = message;
-        messageToMars.effekt = 'Increase';
-        messageToMars.wert = (min_temp - message.temperatur).toFixed(2)
-        console.log('min_temp: ' + min_temp);
-        console.log('temp: ' + message.temperatur);
+        messageToMars.effekt = 'increase';
+        messageToMars.wert = (min_temp - message.temperatur).toFixed(2);
         resolve(messageToMars);
 
       } else if (message.temperatur >= min_temp) {
@@ -122,8 +45,8 @@ const checkTemperature = function (message) {
   })
 
   x.then((message) => {
-    responseToMars.send(message);
+    hf.produce('fromEarth', 'versorgung', message);
   }).catch((message) => {
-    responseToMars.send(message);
+    hf.produce(message);
   })
 }
