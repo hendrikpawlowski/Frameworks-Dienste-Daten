@@ -53,25 +53,7 @@ exports.start = function () {
                         var marsFood = JSON.parse(msg.content);
 
                         let x = new Promise((resolve, reject) => {
-                            /*requestFunction.requestAPI(botanikAPIOptions, earthFoodArray => {
-                                // marsFood = {"name": --- , "temp": ---} || marsFood = {"name": --- , "humidity": ---}
-                                // earthFood = {"name": --- , "minTemperature": --- , "maxTemperature": ---}
-                                const earthFood = helpFunction.getFoodByName(
-                                    marsFood.name,
-                                    earthFoodArray
-                                )
 
-
-
-                                if (marsFood.temp != undefined) {
-                                    resolve(helpFunction.checkTemp(marsFood.temp, earthFood))
-                                } else if (marsFood.humidity != undefined) {
-                                    resolve(helpFunction.checkHumidity(marsFood.humidity, earthFood))
-                                } else {
-                                    reject('Failed')
-                                }
-                            }
-                            )*/
                             request({
                                 method: 'GET',
                                 url: 'http://trefle.io/api/plants/129834',

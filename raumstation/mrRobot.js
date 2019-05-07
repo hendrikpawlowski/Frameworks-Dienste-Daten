@@ -1,5 +1,4 @@
 const amqp = require('amqplib/callback_api');
-const heater = require('./heater')
 
 amqp.connect('amqp://localhost',
     function (err, conn) {

@@ -1,5 +1,4 @@
 const amqp = require('amqplib/callback_api');
-const potato = require('./potato')
 
 /*data = {
     name: "potatoe",
