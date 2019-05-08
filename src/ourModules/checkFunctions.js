@@ -21,8 +21,8 @@ exports.checkTemperature = function (message) {
 
       if (message.temperatur < min_temp) {
         var messageToMars = message;
-        messageToMars.effekt = 'increase';
-        messageToMars.wert = (min_temp - message.temperatur).toFixed(2);
+        messageToMars.effekt = 'change';
+        messageToMars.wert = (min_temp - message.temperatur + 1).toFixed(2);
         resolve(messageToMars);
 
       } else if (message.temperatur >= min_temp) {
@@ -37,7 +37,7 @@ exports.checkTemperature = function (message) {
   })
 
   x.then((message) => {
-    hf.produce('fromEarth', 'versorgung', message);
+    hf.produce('versorgungsroboter', 'versorgung', message);
   }).catch((message) => {
     hf.produce(message);
   })
