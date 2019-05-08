@@ -2,7 +2,6 @@ const fs = require('fs');
 const hf = require('../../ourModules/helpFunctions');
 
 
-// this function sends temperatures for various food to earth
 exports.start = function () {
 
   setInterval(function () {
