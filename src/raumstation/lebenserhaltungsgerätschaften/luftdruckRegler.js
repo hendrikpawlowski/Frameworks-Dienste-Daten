@@ -6,16 +6,18 @@ exports.start = function () {
 
   setInterval(function () {
 
-    getLuftdruck('kartoffel', (luftdruck) => {
+    getLuftdruck((räume) => {
 
-      const message = {
-        versorgungsmittel: 'luftdruck',
-        raum: 'kartoffel',
-        luftdruck: luftdruck
+      for (let i = 0; i < räume.length; i++) {
+        const message = {
+          versorgungsmittel: 'luftdruck',
+          raum: räume[i].bezeichnung,
+          luftdruck: räume[i].luftdruck
+        }
+
+        hf.produce('fromMars', 'versorgung', message);
+        hf.produce('versorgungsroboter', 'versorgung', message);
       }
-
-      hf.produce('fromMars', 'versorgung', message);
-      hf.produce('versorgungsroboter', 'versorgung', message);
     });
   }, 4000)
 }
@@ -31,7 +33,6 @@ exports.stabilizeLuftdruck = function (stabilize, raumName) {
       if (x.räume[i].bezeichnung === raumName) {
 
         x.räume[i].luftdruck = new Number(stabilize);
-        // x.räume[i].luftdruck = new Number(x.räume[i].luftdruck.toFixed(2));
 
         fs.writeFile('./versorgungsmittel/luftdruck.json', JSON.stringify(x), (err) => {
           if (err) throw err;
@@ -42,24 +43,27 @@ exports.stabilizeLuftdruck = function (stabilize, raumName) {
 }
 
 // Mithilfe dieser Methode bekommt man für einen bestimmten Raum den Luftdruck
-const getLuftdruck = function (raumName, callback) {
+const getLuftdruck = function (callback) {
 
   fs.readFile('./versorgungsmittel/luftdruck.json', 'UTF-8', (err, data) => {
 
-    if (err) throw err;
 
-    let token = false;
     const räume = JSON.parse(data).räume;
+    callback(räume);
+    // if (err) throw err;
 
-    for (let i = 0; i < räume.length; i++) {
-      if (räume[i].bezeichnung === raumName) {
-        callback(räume[i].luftdruck);
-        token = true;
-      }
-    }
+    // let token = false;
+    // const räume = JSON.parse(data).räume;
 
-    if (!token) {
-      callback(-1);
-    }
+    // for (let i = 0; i < räume.length; i++) {
+    //   if (räume[i].bezeichnung === raumName) {
+    //     callback(räume[i].luftdruck);
+    //     token = true;
+    //   }
+    // }
+
+    // if (!token) {
+    //   callback(-1);
+    // }
   })
 }
