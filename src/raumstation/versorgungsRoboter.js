@@ -1,9 +1,11 @@
 const hf = require('../ourModules/helpFunctions');
 const klimaanlage = require('./lebenserhaltungsgerätschaften/klimaanlage');
 const luftdruckRegler = require('./lebenserhaltungsgerätschaften/luftdruckRegler');
+const hydrofarm = require('./lebenserhaltungsgerätschaften/hydrofarm');
 
 klimaanlage.start();
 luftdruckRegler.start();
+hydrofarm.start();
 
 
 hf.consume('versorgungsroboter', 'versorgung', (data) => {
