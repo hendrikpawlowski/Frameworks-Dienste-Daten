@@ -1,36 +1,18 @@
-const amqp = require('amqplib/callback_api');
 const hf = require('../ourModules/helpFunctions');
 const klimaanlage = require('./lebenserhaltungsgerätschaften/klimaanlage');
+const luftdruckRegler = require('./lebenserhaltungsgerätschaften/luftdruckRegler');
 
 klimaanlage.start();
+luftdruckRegler.start();
 
 
-hf.consume('fromEarth', 'versorgung', (data) => {
+hf.consume('versorgungsroboter', 'versorgung', (data) => {
 
-  if(data.versorgungsmittel === 'temperatur' && data.effekt === 'increase') {
+  if(data.versorgungsmittel === 'temperatur' && data.effekt === 'change') {
     klimaanlage.changeTemperature(data.wert, data.raum);
   }
+
+  if(data.versorgungsmittel === 'luftdruck') {
+    luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
+  }
 })
-
-
-// amqp.connect('amqp://localhost',
-//   function (err, conn) {
-//     conn.createChannel(function (err, ch) {
-//       var exchangeName = 'fromEarth'
-
-//       ch.assertExchange(exchangeName, 'direct', { durable: false })
-
-//       ch.assertQueue('', { exclusive: true }, function (err, q) {
-//         ch.bindQueue('', exchangeName, 'versorgung')
-
-//         ch.consume('', function (msg) {
-//           const message = JSON.parse(msg.content);
-//           console.log("RECEIVED: " + msg.content);
-
-          
-
-//         }, { noAck: true })
-//       })
-//     })
-//   }
-// )
