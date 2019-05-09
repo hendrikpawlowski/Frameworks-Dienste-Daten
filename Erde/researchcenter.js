@@ -2,10 +2,15 @@ const amqp = require('amqplib/callback_api');
 const helpFunctions = require('./helpFunctions/helpFunctions')
 var researchResults = require('./researchResults')
 const fs = require('fs');
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+const inquirer = require('inquirer')
+
+var questions = [{
+    type: 'type',
+    name: 'name',
+    message: "Geben Sie die x-Koordinate ein: "
+}, {type: 'type',
+    name: 'name2',
+    message: "Geben Sie die y-Koordinate ein: "}]
 
 amqp.connect('amqp://localhost',
     function (err, conn) {
@@ -40,7 +45,7 @@ amqp.connect('amqp://localhost',
                             x: 0,
                             y: 0
                         }
-                        readline.question(`Geben Sie die x-Koordinate ein:`, (x) => {
+                        /*readline.question(`Geben Sie die x-Koordinate ein:`, (x) => {
                             newPosition.x = x;
                             readline.question(`Geben Sie die y-Koordinate ein:`, (y) => {
                                 newPosition.y = y;
@@ -49,7 +54,14 @@ amqp.connect('amqp://localhost',
                                 console.log("SENT: " + JSON.stringify(newPosition))
                                 readline.close()
                             })
-                        })
+                        })*/
+
+                    inquirer.prompt(questions).then(answers => {
+                        newPosition.x = answers['name']
+                        newPosition.y = answers['name2']
+                        ch.publish(exchangeName, 'orderFromEarth', new Buffer(JSON.stringify(newPosition)))
+                        console.log("SENT: " + JSON.stringify(newPosition))
+                    })
 
                 }, { noAck: true })
             })
