@@ -1,5 +1,5 @@
 const amqp = require('amqplib/callback_api');
-const helpFunctions = require('../src/ourModules/helpFunctions')
+const helpFunctions = require('../ourModules/helpFunctions')
 var researchResults = require('./researchResults')
 const fs = require('fs');
 const inquirer = require('inquirer')

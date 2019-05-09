@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 const research = require('./research');
-const helpFunctions = require('../Erde/helpFunctions/helpFunctions');
+const helpFunctions = require('../../ourModules/helpFunctions');
 const fs = require('fs');
 
 amqp.connect('amqp://localhost', function (err, conn) {
