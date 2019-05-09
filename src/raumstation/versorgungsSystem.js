@@ -8,10 +8,6 @@ luftdruckRegler.start();
 hydrofarm.start();
 
 
-hf.consume('fromMars', 'wasser', (data) => {
-
-})
-
 hf.consume('fromMars', 'luftdruck', (data) => {
 
   if (data.luftdruck < 900) {
@@ -24,13 +20,3 @@ hf.consume('fromMars', 'temperaturAntwort', (data) => {
     klimaanlage.changeTemperature(data.wert, data.raum);
   }
 })
-
-const check = function (data) {
-  // if (data.versorgungsmittel === 'temperatur' && data.effekt === 'change') {
-  //   klimaanlage.changeTemperature(data.wert, data.raum);
-  // }
-
-  if (data.versorgungsmittel === 'luftdruck') {
-    luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
-  }
-}

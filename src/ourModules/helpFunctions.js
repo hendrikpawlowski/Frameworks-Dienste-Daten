@@ -78,7 +78,7 @@ exports.consume = function (exchangeName, routingKey, callback) {
 
         ch.consume('', function (msg) {
 
-          console.log("RECEIVED: " + msg.content);
+          // console.log("RECEIVED: " + msg.content);
 
           callback(JSON.parse(msg.content));
         },
