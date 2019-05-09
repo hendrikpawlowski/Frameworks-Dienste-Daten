@@ -11,6 +11,14 @@ hydrofarm.start();
 hf.consume('fromMars', 'luftdruck', (data) => {
 
   if (data.luftdruck < 900) {
+    // console.log("DATA: " + JSON.stringify(data));
+    const alarm = {
+      versorgungsmittel: 'luftdruck',
+      raum: data.raum,
+      evakuierung: true
+    }
+    hf.produce('fromMars', 'alarm', alarm);
+
     luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
   }
 })
