@@ -1,1 +1,16 @@
-{"räume":[{"bezeichnung":"kartoffel","temperatur":-6.78},{"bezeichnung":"schlafzimmer","temperatur":17},{"bezeichnung":"aufenthaltsraum","temperatur":-12}]}
+{
+  "räume": [
+    {
+      "bezeichnung": "kartoffel",
+      "temperatur": -6.78
+    },
+    {
+      "bezeichnung": "schlafzimmer",
+      "temperatur": 27
+    },
+    {
+      "bezeichnung": "aufenthaltsraum",
+      "temperatur": 8
+    }
+  ]
+}
