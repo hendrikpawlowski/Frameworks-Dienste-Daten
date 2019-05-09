@@ -37,7 +37,7 @@ exports.checkTemperature = function (message) {
   })
 
   x.then((message) => {
-    hf.produce('versorgungsroboter', 'versorgung', message);
+    hf.produce('fromMars', 'temperaturAntwort', message);
   }).catch((message) => {
     hf.produce(message);
   })
