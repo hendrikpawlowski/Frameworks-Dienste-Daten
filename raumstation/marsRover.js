@@ -69,7 +69,7 @@ amqp.connect('amqp://localhost', function (err, conn) {
                         clearInterval(interval)
                         console.log("Waiting for new destination...")
                     } else {
-                        console.log("Moving...")
+                        console.log("Moving... " + "[current position] -> x: " + research.position.x + " y: " + research.position.y)
                     }
 
                     if(counter % 5 === 0) {

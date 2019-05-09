@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="00654d01-266c-43eb-9ca4-d5c4f9dd9d12" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Erde/researchResults.json" beforeDir="false" afterPath="$PROJECT_DIR$/Erde/researchResults.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Erde/researchcenter.js" beforeDir="false" afterPath="$PROJECT_DIR$/Erde/researchcenter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/raumstation/marsRover.js" beforeDir="false" afterPath="$PROJECT_DIR$/raumstation/marsRover.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/raumstation/research.json" beforeDir="false" afterPath="$PROJECT_DIR$/raumstation/research.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -50,21 +48,21 @@
         <entry file="file://$PROJECT_DIR$/raumstation/research.json">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="107" selection-start-column="107" selection-end-column="107" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/raumstation/marsRover.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-188">
-              <caret line="52" column="46" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
+              <caret column="108" selection-start-column="108" selection-end-column="108" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/raumstation/marsRover.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="229">
+              <caret line="71" column="112" selection-start-line="71" selection-start-column="112" selection-end-line="71" selection-end-column="112" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Erde/researchcenter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
@@ -104,8 +102,8 @@
         <option value="$PROJECT_DIR$/Erde/researchResults.json" />
         <option value="$PROJECT_DIR$/Erde/foodConsumer.js" />
         <option value="$PROJECT_DIR$/raumstation/research.json" />
-        <option value="$PROJECT_DIR$/raumstation/marsRover.js" />
         <option value="$PROJECT_DIR$/Erde/researchcenter.js" />
+        <option value="$PROJECT_DIR$/raumstation/marsRover.js" />
       </list>
     </option>
   </component>
@@ -194,12 +192,12 @@
       <workItem from="1557252557203" duration="7000" />
       <workItem from="1557252584154" duration="11822000" />
       <workItem from="1557302338824" duration="3293000" />
-      <workItem from="1557386461669" duration="10113000" />
+      <workItem from="1557386461669" duration="10495000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27883000" />
+    <option name="totallyTimeSpent" value="28265000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -298,7 +296,7 @@
     <entry file="file://$PROJECT_DIR$/raumstation/research.json">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="107" selection-start-column="107" selection-end-column="107" />
+          <caret column="108" selection-start-column="108" selection-end-column="108" />
         </state>
       </provider>
     </entry>
@@ -309,17 +307,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/raumstation/marsRover.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-188">
-          <caret line="52" column="46" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Erde/researchcenter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="60" column="54" selection-start-line="60" selection-start-column="54" selection-end-line="60" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/raumstation/marsRover.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="71" column="112" selection-start-line="71" selection-start-column="112" selection-end-line="71" selection-end-column="112" />
         </state>
       </provider>
     </entry>
