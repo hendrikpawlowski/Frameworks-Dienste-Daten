@@ -15,8 +15,7 @@ exports.start = function () {
           luftdruck: räume[i].luftdruck
         }
 
-        hf.produce('fromMars', 'versorgung', message);
-        hf.produce('versorgungsroboter', 'versorgung', message);
+        hf.produce('fromMars', 'luftdruck', message);
       }
     });
   }, 4000)
@@ -26,6 +25,9 @@ exports.start = function () {
 exports.stabilizeLuftdruck = function (stabilize, raumName) {
 
   fs.readFile('./versorgungsmittel/luftdruck.json', 'UTF-8', (err, data) => {
+
+    console.log("\n\nLUFTDRUCK STABILISIERT\n\n");
+    if (err) throw err;
 
     let x = JSON.parse(data);
 

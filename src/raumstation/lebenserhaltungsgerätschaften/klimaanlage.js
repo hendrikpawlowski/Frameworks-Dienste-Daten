@@ -14,8 +14,7 @@ exports.start = function () {
         temperatur: temperatur
       }
 
-      hf.produce('fromMars', 'versorgung', message);
-
+      hf.produce('fromMars', 'temperatur', message);
     });
   }, 2000)
 }

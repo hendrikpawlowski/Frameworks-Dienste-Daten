@@ -15,7 +15,7 @@ exports.start = function () {
         menge: wasser
       }
 
-      hf.produce('fromMars', 'versorgung', message);
+      hf.produce('fromMars', 'wasser', message);
     });
   }, 3000)
 }
