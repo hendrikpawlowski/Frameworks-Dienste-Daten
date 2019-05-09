@@ -19,7 +19,7 @@ rl.question('\nIn welchem Raum möchten Sie die Temperatur anpassen?\n', (raum) 
 
     console.log("MESSAGE: " + JSON.stringify(message));
 
-    hf.produce('versorgungsroboter', 'versorgung', message);
+    hf.produce('fromMars', 'temperaturAntwort', message);
     rl.close();
   })
 })
