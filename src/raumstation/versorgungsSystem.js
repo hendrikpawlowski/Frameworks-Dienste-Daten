@@ -15,6 +15,14 @@ hf.consume('fromMars', 'wasser', (data) => {
 hf.consume('fromMars', 'luftdruck', (data) => {
 
   if (data.luftdruck < 900) {
+    // console.log("DATA: " + JSON.stringify(data));
+    const alarm = {
+      versorgungsmittel: 'luftdruck',
+      raum: data.raum,
+      evakuierung: true
+    }
+    hf.produce('fromMars', 'alarm', alarm);
+
     luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
   }
 })
@@ -30,7 +38,8 @@ const check = function (data) {
   //   klimaanlage.changeTemperature(data.wert, data.raum);
   // }
 
-  if (data.versorgungsmittel === 'luftdruck') {
-    luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
-  }
+  // if (data.versorgungsmittel === 'luftdruck') {
+  //   hf.produce
+  //   luftdruckRegler.stabilizeLuftdruck(1013, data.raum);
+  // }
 }
